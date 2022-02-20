@@ -1,0 +1,54 @@
+version: "3.9"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile-api
+    container_name: portto_api
+    ports:
+      - 8080:8080
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - ./config/config.yaml:/app/config.yaml
+    environment:
+      - ETH_DATABASE_HOST=mysql
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/healthcheck"]
+      interval: 1m30s
+      timeout: 5s
+      retries: 5
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile-worker
+    container_name: portto_worker
+    depends_on:
+      mysql:
+        condition: service_healthy
+      web:
+        condition: service_healthy
+    volumes:
+      - ./config/config.yaml:/app/config.yaml
+    environment:
+      - ETH_DATABASE_HOST=mysql
+
+  mysql:
+    image: mysql:5.7 
+    container_name: portto_mysql
+    command: mysqld --user=root
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_DATABASE=demo
+      - MYSQL_USER=demo
+      - MYSQL_PASSWORD=demo123
+      - MYSQL_ROOT_PASSWORD=root
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 1m30s
+      timeout: 5s
+      retries: 5
+    platform: linux/amd64

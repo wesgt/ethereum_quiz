@@ -1,0 +1,17 @@
+# build stage
+FROM golang:1.17.7-alpine AS build-env
+RUN apk update && apk upgrade && \
+    apk --update add git make build-base
+WORKDIR /src
+COPY . .
+RUN make build type=app 
+
+# final stage
+FROM alpine:latest
+RUN apk update && apk upgrade && \
+    apk --update --no-cache add tzdata curl
+WORKDIR /app
+COPY --from=build-env /src/portto-app /app
+COPY --from=build-env /src/config/*.yaml /app
+EXPOSE 8080
+ENTRYPOINT ./portto-app
