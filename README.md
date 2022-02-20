@@ -1,7 +1,11 @@
 # Ethereum Quiz
 Implement two Ethereum blockchain services
-- portto-app : API service
-- portto-worker : Ethereum block indexer service
+- API service
+  - Entry point: [app/main.go](https://github.com/wesgt/ethereum_quiz/blob/master/app/main.go)
+  - Binary file : portto-app
+- Ethereum block indexer service
+  - Entry point: [worker/main.go](https://github.com/wesgt/ethereum_quiz/blob/master/worker/main.go)
+  - Binary file : portto-worker
 
 # Run the Applications
 Here is the steps to run it with `docker-compose`
