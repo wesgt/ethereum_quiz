@@ -16,9 +16,9 @@ services:
       - ETH_DATABASE_HOST=mysql
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/healthcheck"]
-      interval: 1m30s
+      interval: 40s
       timeout: 5s
-      retries: 5
+      retries: 10
 
   worker:
     build:
@@ -48,7 +48,8 @@ services:
       - MYSQL_ROOT_PASSWORD=root
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-uroot", "-proot"]
-      interval: 1m30s
+      interval: 40s
       timeout: 5s
-      retries: 5
+      retries: 10
     platform: linux/amd64
+
