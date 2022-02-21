@@ -8,9 +8,6 @@ build:
 clean:
 	if [ -f ${BINARY} ] ; then rm ${BINARY} ; fi
 
-docker:
-	docker build -t portto/api .
-
 run:
 	docker-compose up --build -d
 

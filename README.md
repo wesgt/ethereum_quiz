@@ -17,9 +17,6 @@ $ git clone https://github.com/wesgt/ethereum_quiz.git
 # move to project
 $ cd ethereum_quiz
 
-# Build the docker image first
-$ make docker
-
 # Run the application
 $ make run
 
