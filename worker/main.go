@@ -14,7 +14,7 @@ import (
 )
 
 const workerPoolSize = 4
-const scanCount = 1
+const scanCount = 40
 
 func init() {
 	if err := config.Load(); err != nil {
