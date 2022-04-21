@@ -1,5 +1,5 @@
 # Ethereum Quiz
-[![test](https://github.com/wesgt/ethereum_quiz/actions/workflows/go.yml/badge.svg?branch=master)](https://github.com/wesgt/ethereum_quiz/actions/workflows/go.yml)
+[![test](https://github.com/wesgt/ethereum_quiz/actions/workflows/test.yml/badge.svg)](https://github.com/wesgt/ethereum_quiz/actions/workflows/test.yml)
 
 Implement two Ethereum blockchain services
 - API service
