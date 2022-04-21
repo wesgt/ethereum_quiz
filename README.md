@@ -1,4 +1,6 @@
 # Ethereum Quiz
+![action](https://github.com/wesgt/ethereum_quiz/actions/workflows/go.yml/badge.svg)
+
 Implement two Ethereum blockchain services
 - API service
   - Entry point: [app/main.go](https://github.com/wesgt/ethereum_quiz/blob/master/app/main.go)
