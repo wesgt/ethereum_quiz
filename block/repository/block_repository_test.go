@@ -25,6 +25,7 @@ func TestFetch(t *testing.T) {
 		t.Fatalf("an error '%s' was not expected when opening a stub database connection", err)
 	}
 	defer sqlDB.Close()
+	// To avoid mock failure, set SkipInitializeWithVersion = true.
 	db := utils.NewMockDB(t, sqlDB)
 
 	blockRows := sqlmock.NewRows([]string{"number", "hash", "parent_hash", "time", "transaction_hash"}).
@@ -63,6 +64,28 @@ func TestGetByID(t *testing.T) {
 
 	blockRepo := repository.NewBlockRepository(db)
 	block, err := blockRepo.GetByID(int(mockBlock.Number))
+	assert.NoError(t, err)
+	assert.NotNil(t, block)
+}
+
+func TestCreateOrUpdate(t *testing.T) {
+	sqlDB, mock, err := sqlmock.New()
+	if err != nil {
+		t.Fatalf("an error '%s' was not expected when opening a stub database connection", err)
+	}
+	defer sqlDB.Close()
+	db := utils.NewMockDB(t, sqlDB)
+
+	mock.ExpectBegin()
+	mock.ExpectExec("INSERT INTO `blocks`").
+		WithArgs(mockBlock.Hash, mockBlock.ParentHash, mockBlock.Time, mockBlock.Number).
+		WillReturnResult(sqlmock.NewResult(1, 1))
+	mock.ExpectExec("INSERT INTO `transactions`").
+		WillReturnResult(sqlmock.NewResult(1, 1))
+	mock.ExpectCommit()
+
+	blockRepo := repository.NewBlockRepository(db)
+	block, err := blockRepo.CreateOrUpdate(mockBlock)
 	assert.NoError(t, err)
 	assert.NotNil(t, block)
 }

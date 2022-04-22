@@ -47,6 +47,7 @@ func (repo *blockRepository) GetByID(id int) (*domain.Block, error) {
 }
 
 func (repo *blockRepository) CreateOrUpdate(block *domain.Block) (*domain.Block, error) {
+	// result := repo.db.Debug().Clauses(clause.OnConflict{
 	result := repo.db.Clauses(clause.OnConflict{
 		UpdateAll: true,
 	}).Create(&block)

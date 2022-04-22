@@ -26,6 +26,7 @@ func TestGetByID(t *testing.T) {
 		t.Fatalf("an error '%s' was not expected when opening a stub database connection", err)
 	}
 	defer sqlDB.Close()
+	// To avoid mock failure, set SkipInitializeWithVersion = true.
 	db := utils.NewMockDB(t, sqlDB)
 
 	txRows := sqlmock.NewRows([]string{"hash", "block_hash", "from", "to", "value", "nonce", "log_index"}).

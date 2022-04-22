@@ -11,7 +11,7 @@ import (
 func NewMockDB(t *testing.T, sqlDB *sql.DB) *gorm.DB {
 	// create dialector
 	dialector := mysql.New(mysql.Config{
-		SkipInitializeWithVersion: true,
+		SkipInitializeWithVersion: true, // needs to be set to true
 		Conn:                      sqlDB,
 		DriverName:                "mysql",
 	})
