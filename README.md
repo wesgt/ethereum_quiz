@@ -1,5 +1,6 @@
 # Ethereum Quiz
 [![test](https://github.com/wesgt/ethereum_quiz/actions/workflows/test.yml/badge.svg)](https://github.com/wesgt/ethereum_quiz/actions/workflows/test.yml)
+[![codecov](https://codecov.io/gh/wesgt/ethereum_quiz/branch/master/graph/badge.svg?token=XBN70HWCYH)](https://codecov.io/gh/wesgt/ethereum_quiz)
 
 Implement two Ethereum blockchain services
 - API service
